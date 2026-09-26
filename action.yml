@@ -1,0 +1,52 @@
+name: Upload Release Assets
+description: Uploads files to the Forgejo release of a tag, creating the release when it does not exist yet.
+author: Mikkel ALMONTE--RINGAUD
+
+inputs:
+  files:
+    description: >
+      Files to upload, one per line. A line is a file, a directory whose direct files are all
+      uploaded, or a glob pattern using *, ? and **.
+    required: true
+  tag:
+    description: Tag of the release. Defaults to the tag that triggered the workflow.
+    default: ${{ forgejo.ref_name }}
+  title:
+    description: Title given to the release when it has to be created. Defaults to the tag.
+    default: ""
+  body:
+    description: Notes given to the release when it has to be created.
+    default: ""
+  draft:
+    description: Create the release as a draft when it does not exist yet.
+    default: "false"
+  prerelease:
+    description: Mark the release as a prerelease when it has to be created.
+    default: "false"
+  overwrite:
+    description: Replace a file already attached to the release under the same name.
+    default: "true"
+  fail-on-unmatched:
+    description: Fail when a line of files matches nothing, instead of only warning.
+    default: "true"
+  token:
+    description: Token allowed to write releases of the repository.
+    default: ${{ forgejo.token }}
+  server-url:
+    description: Base url of the Forgejo instance.
+    default: ${{ forgejo.server_url }}
+  repository:
+    description: Repository owning the release, as owner/name.
+    default: ${{ forgejo.repository }}
+
+outputs:
+  release-id:
+    description: Identifier of the release.
+  release-url:
+    description: Web page of the release.
+  assets:
+    description: JSON array of the uploaded files, each with its name and download url.
+
+runs:
+  using: node24
+  main: dist/index.js
