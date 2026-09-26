@@ -1,0 +1,19 @@
+{
+  "name": "@forgejo/upload-release-assets",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild src/main.ts --bundle --platform=node --target=node24 --format=esm --outfile=dist/index.js --legal-comments=none --minify",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@effect/platform-node": "^4.0.0-rc.117",
+    "effect": "^4.0.0-rc.117"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  }
+}
